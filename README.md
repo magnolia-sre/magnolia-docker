@@ -12,7 +12,9 @@ It starts automatically an empty Tomcat server and exposes the port 8080.
 Additional Dockerfiles are also provided in order to illustrate some common deployment patterns.
 
 ### one-author-derby
-A straightforward Dockerfile used to illustrate basic usage of the base image.
+A straightforward Dockerfile used to illustrate basic usage of the base image. 
+
+Magnolia CMS is running inside its own container as an author instance and uses Derby to persist the data.
 
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
