@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Repository PUBLIC "-//The Apache Software Foundation//DTD Jackrabbit 2.0//EN" "http://jackrabbit.apache.org/dtd/repository-2.0.dtd">
+<Repository>
+  <DataSources>
+    <DataSource name="magnolia">
+      <param name="driver" value="org.postgresql.Driver" />
+      <param name="url" value="jdbc:postgresql://db/${db.schema}" />
+      <param name="user" value="${db.username}" />
+      <param name="password" value="${db.password}" />
+      <param name="databaseType" value="postgresql"/>
+    </DataSource>
+  </DataSources>
+  <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+     <param name="path" value="${rep.home}/repository" />
+  </FileSystem>
+  <Security appName="magnolia">
+    <SecurityManager class="org.apache.jackrabbit.core.DefaultSecurityManager"/>
+    <AccessManager class="org.apache.jackrabbit.core.security.DefaultAccessManager">
+    </AccessManager>
+    <!-- login module defined here is used by the repo to authenticate every request. not by the webapp to authenticate user against the webapp context (this one has to be passed before thing here gets invoked -->
+    <LoginModule class="info.magnolia.jaas.sp.jcr.JackrabbitAuthenticationModule">
+    </LoginModule>
+  </Security>
+  <DataStore class="org.apache.jackrabbit.core.data.FileDataStore">
+    <param name="path" value="${rep.home}/repository/datastore"/>
+    <param name="minRecordLength" value="1024"/>
+  </DataStore>
+  <Workspaces rootPath="${rep.home}/workspaces" defaultWorkspace="default" />
+  <Workspace name="default">
+    <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+      <param name="path" value="${wsp.home}/default" />
+    </FileSystem>
+    <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.PostgreSQLPersistenceManager">
+      <param name="dataSourceName" value="magnolia"/>
+      <param name="schemaObjectPrefix" value="pm_${wsp.name}_" />
+    </PersistenceManager>
+    <SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+      <param name="path" value="${wsp.home}/index" />
+      <!-- SearchIndex will get the indexing configuration from the classpath, if not found in the workspace home -->
+      <param name="indexingConfiguration" value="/info/magnolia/jackrabbit/indexing_configuration.xml"/>
+      <param name="useCompoundFile" value="true" />
+      <param name="minMergeDocs" value="100" />
+      <param name="volatileIdleTime" value="3" />
+      <param name="maxMergeDocs" value="100000" />
+      <param name="mergeFactor" value="10" />
+      <param name="maxFieldLength" value="10000" />
+      <param name="bufferSize" value="10" />
+      <param name="cacheSize" value="1000" />
+      <param name="forceConsistencyCheck" value="false" />
+      <param name="autoRepair" value="true" />
+      <param name="queryClass" value="org.apache.jackrabbit.core.query.QueryImpl" />
+      <param name="respectDocumentOrder" value="true" />
+      <param name="resultFetchSize" value="100" />
+      <param name="extractorPoolSize" value="3" />
+      <param name="extractorTimeout" value="100" />
+      <param name="extractorBackLogSize" value="100" />
+    </SearchIndex>
+    <WorkspaceSecurity>
+      <AccessControlProvider class="info.magnolia.cms.core.MagnoliaAccessProvider" />
+    </WorkspaceSecurity>
+  </Workspace>
+  <Versioning rootPath="${rep.home}/version">
+    <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+      <param name="path" value="${rep.home}/workspaces/version" />
+    </FileSystem>
+<PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.PostgreSQLPersistenceManager">
+      <param name="dataSourceName" value="magnolia"/>
+      <param name="schemaObjectPrefix" value="version_" />
+    </PersistenceManager>
+  </Versioning>
+</Repository>
