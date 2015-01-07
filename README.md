@@ -20,5 +20,11 @@ Magnolia CMS is running inside its own container as an author instance and uses 
 
 More details in this [blog post](http://nicolasbarbe.com/2015/01/02/a-docker-image-for-magnolia/).
 
+### one-author-one-public
+A more complete but still simple Dockerfile to illustrate the deployment of a Magnolia public and author instances.
+
+More details in this [blog post](http://nicolasbarbe.com/2015/01/07/architecture-patterns-single-author-and-public-instance/).
+
+
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
