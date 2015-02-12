@@ -26,6 +26,10 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 	-Ddb.username=$DB_USERNAME \
 	-Ddb.password=$DB_PASSWORD"
 
+# Magnolia cluster Id
+export CATALINA_OPTS="$CATALINA_OPTS \
+	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID"
+
 # JMX Settings:
 #export CATALINA_OPTS="$CATALINA_OPTS \
 #	-Dcom.sun.management.jmxremote.port=12345 
