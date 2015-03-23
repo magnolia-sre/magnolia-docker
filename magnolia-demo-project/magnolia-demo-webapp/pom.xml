@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>info.magnolia.docker</groupId>
-    <artifactId>oneToOne</artifactId>
+    <artifactId>magnolia-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>oneToOne-webapp</artifactId>
-  <name>oneToOne: webapp</name>
+  <artifactId>magnolia-demo-webapp</artifactId>
+  <name>magnolia: webapp</name>
   <packaging>war</packaging>
   <dependencies>
     <!-- Add your project specific dependencies here: -->
