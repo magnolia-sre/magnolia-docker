@@ -7,21 +7,20 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 	-Xmx512M"
 
 # Garbage collector settings
-export CATALINA_OPTS="$CATALINA_OPTS \
-	-XX:+UseParallelGC \
-	-XX:MaxGCPauseMillis=1500 \
-	-XX:GCTimeRatio=9 \
-	-XX:+DisableExplicitGC"
+# export CATALINA_OPTS="$CATALINA_OPTS \
+# 	-XX:+UseParallelGC \
+# 	-XX:MaxGCPauseMillis=1500 \
+# 	-XX:GCTimeRatio=9 \
+# 	-XX:+DisableExplicitGC"
 
 # JVM settings
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-server"
 
-
 # Magnolia Home
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-Dmagnolia.home=$MAGNOLIA_HOME"
-	
+
 # Database settings 
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-Ddb.address=$DB_ADDRESS \
@@ -34,15 +33,20 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID"
 
-# JMX Settings:
-#export CATALINA_OPTS="$CATALINA_OPTS \
-#	-Dcom.sun.management.jmxremote.port=12345 
-#	-Dcom.sun.management.jmxremote.ssl=false 
-#	-Dcom.sun.management.jmxremote.authenticate=false"
+# JMX Settings
+export CATALINA_OPTS="$CATALINA_OPTS \
+	-Dcom.sun.management.jmxremote.port=1099 
+	-Dcom.sun.management.jmxremote.rmi.port=1099
+	-Dcom.sun.management.jmxremote.ssl=false 
+	-Dcom.sun.management.jmxremote.authenticate=false"
 
 # Debugging
-#export CATALINA_OPTS="$CATALINA_OPTS \
-#	-Xdebug 
-#	-Xnoagent 
-#	-Djava.compiler=NONE 
-#	-Xrunjdwp:transport=dt_socket,address=54455,suspend=n,server=y"
+export CATALINA_OPTS="$CATALINA_OPTS \
+	-agentlib:jdwp=transport=dt_socket,address=1043,server=y,suspend=n"
+
+# Hot swap
+export CATALINA_OPTS="$CATALINA_OPTS \
+     -dcevm"
+      # -XXaltjvm=dcevm -javaagent:/usr/local/lib/hotswap-agent.jar"
+
+

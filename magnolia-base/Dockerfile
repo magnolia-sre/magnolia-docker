@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM debian:wheezy
 
 MAINTAINER Nicolas Barbé "https://github.com/nicolasbarbe"
 
@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install Apache Tomcat 7 and openjdk-7-jdk
 RUN apt-get update && apt-get install -y --no-install-recommends  \
-	openjdk-7-jdk  \
+	openjdk-7-jre-headless  \
 	tomcat7 \
 	wget  
 
