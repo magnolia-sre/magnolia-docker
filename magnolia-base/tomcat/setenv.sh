@@ -4,7 +4,7 @@
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-XX:MaxPermSize=256m \
 	-Xms64M \
-	-Xmx512M"
+	-Xmx1024M"
 
 # Garbage collector settings
 export CATALINA_OPTS="$CATALINA_OPTS \
