@@ -37,11 +37,6 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 # Database settings 
 #
 
-# set some default values
-: ${DB_SCHEMA:=magnolia}
-: ${DB_USERNAME:=magnolia}
-: ${DB_PASSWORD:=magnolia}
-
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-Ddb.address=$DB_ADDRESS \
 	-Ddb.port=$DB_PORT \
@@ -54,10 +49,11 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 #
 
 # set the cluster ID randomly if not set
-: ${CLUSTER_ID:="cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32"}
+: ${CLUSTER_ID:=`cat /dev/urandom | tr -cd 'a-f0-9' | head -c 32`}
 
 export CATALINA_OPTS="$CATALINA_OPTS \
-	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID"
+	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID \
+	-Dmagnolia.clusterid=$CLUSTER_ID"
 
 #
 # JMX Settings:
