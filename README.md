@@ -4,10 +4,10 @@ A repository containing docker images for [Magnolia CMS](http://magnolia-cms.com
 ## The base image
 A base image is available as a starting point for any containers running Magnolia CMS.
 
-This image is based on Debian Wheezy, JDK 7 and Tomcat 8 and includes JDBC drivers for MySQL and PostgreSQL.
+This image is based on Debian Jessie, JDK 7 and Tomcat 7 and includes JDBC drivers for MySQL and PostgreSQL.
 
 It starts automatically an empty Tomcat server and exposes the port 8080.
-
+ 
 More details in this [blog post](http://nicolasbarbe.com/2015/01/02/a-docker-image-for-magnolia/).
 
 ## Usage
@@ -24,6 +24,15 @@ RUN wget -nv http://sourceforge.net/projects/magnolia/files/magnolia/Magnolia%20
 ```
 
 Here, Magnolia CMS is running inside its own container as an author instance and uses Derby to persist the data.
+
+## Configuration
+The configuration of the image is done through these environment variables:
+
+- `CLUSTER_ID`: Unique identifier of the node in the cluster. This cluster Id is automatically generated and can be overriden if needed through this variable.
+- `MAGNOLIA_BASE`: Directory containing one or several Magnolia home directories (if you want to scale).
+- `DB_SCHEMA`: Database schema. Only relevant if your Magnolia instance is using a SQL database.
+- `DB_USERNAME`: Database username. Only relevant if your Magnolia instance is using a SQL database.
+- `DB_PASSWORD`: Database password. Only relevant if your Magnolia instance is using a SQL database.
 
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.

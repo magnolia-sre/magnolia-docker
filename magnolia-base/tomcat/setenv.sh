@@ -26,13 +26,6 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 	-XX:GCTimeRatio=9 \
 	-XX:+DisableExplicitGC"
 
-#
-# Magnolia Home
-#
-
-export CATALINA_OPTS="$CATALINA_OPTS \
-	-Dmagnolia.home=$MAGNOLIA_HOME"
-
 #	
 # Database settings 
 #
@@ -54,6 +47,14 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 export CATALINA_OPTS="$CATALINA_OPTS \
 	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID \
 	-Dmagnolia.clusterid=$CLUSTER_ID"
+
+#
+# Magnolia Base
+#
+: ${MAGNOLIA_BASE:=/var/data/magnolia}
+export CATALINA_OPTS="$CATALINA_OPTS \
+	-Dmagnolia.home=$MAGNOLIA_BASE/$CLUSTER_ID"
+
 
 #
 # JMX Settings:

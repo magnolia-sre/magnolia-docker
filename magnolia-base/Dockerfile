@@ -36,6 +36,7 @@ RUN wget -nv http://jdbc.postgresql.org/download/$POSTGRESQL_JDBC_PACKAGE.jar -O
 RUN wget -nv -O - http://dev.mysql.com/get/Downloads/Connector-J/$MYSQL_JDBC_PACKAGE.tar.gz  | tar -C /tmp -xvzf - $MYSQL_JDBC_PACKAGE/$MYSQL_JDBC_PACKAGE-bin.jar 
 RUN mv /tmp/$MYSQL_JDBC_PACKAGE/$MYSQL_JDBC_PACKAGE-bin.jar $CATALINA_HOME/lib
 
+
 # Start the tomcat instance
 ENTRYPOINT ["/usr/share/tomcat7/bin/catalina.sh", "run"]
 CMD [""]
