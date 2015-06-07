@@ -51,9 +51,13 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 #
 # Magnolia Base
 #
-: ${MAGNOLIA_BASE:=/var/data/magnolia}
+if [ -z "$MAGNOLIA_HOME" ]; then 
+	: ${MAGNOLIA_BASE:=/var/data/magnolia}
+	MAGNOLIA_HOME=$MAGNOLIA_BASE/$CLUSTER_ID
+fi
+
 export CATALINA_OPTS="$CATALINA_OPTS \
-	-Dmagnolia.home=$MAGNOLIA_BASE/$CLUSTER_ID"
+	-Dmagnolia.home=$MAGNOLIA_HOME"
 
 
 #
