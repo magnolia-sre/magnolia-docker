@@ -5,7 +5,8 @@
 #
 
 export CATALINA_OPTS="$CATALINA_OPTS \
-	-server"
+	-server \
+	-Djava.security.egd=file:/dev/./urandom"
 
 #
 # JVM memory settings
@@ -48,33 +49,3 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID \
 	-Dmagnolia.clusterid=$CLUSTER_ID"
 
-#
-# Magnolia Base
-#
-if [ -z "$MAGNOLIA_HOME" ]; then 
-	: ${MAGNOLIA_BASE:=/var/data/magnolia}
-	MAGNOLIA_HOME=$MAGNOLIA_BASE/$CLUSTER_ID
-fi
-
-export CATALINA_OPTS="$CATALINA_OPTS \
-	-Dmagnolia.home=$MAGNOLIA_HOME"
-
-
-#
-# JMX Settings:
-#
-
-#export CATALINA_OPTS="$CATALINA_OPTS \
-#	-Dcom.sun.management.jmxremote.port=12345 
-#	-Dcom.sun.management.jmxremote.ssl=false 
-#	-Dcom.sun.management.jmxremote.authenticate=false"
-
-#
-# Debugging
-#
-
-#export CATALINA_OPTS="$CATALINA_OPTS \
-#	-Xdebug 
-#	-Xnoagent 
-#	-Djava.compiler=NONE 
-#	-Xrunjdwp:transport=dt_socket,address=54455,suspend=n,server=y"
