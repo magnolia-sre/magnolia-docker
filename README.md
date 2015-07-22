@@ -29,10 +29,11 @@ Here, Magnolia CMS is running inside its own container as an author instance and
 The configuration of the image is done through these environment variables:
 
 - `CLUSTER_ID`: Unique identifier of the node in the cluster. This cluster Id is automatically generated and can be overriden if needed through this variable.
-- `MAGNOLIA_BASE`: Directory containing one or several Magnolia home directories (if you want to scale).
 - `DB_SCHEMA`: Database schema. Only relevant if your Magnolia instance is using a SQL database.
 - `DB_USERNAME`: Database username. Only relevant if your Magnolia instance is using a SQL database.
 - `DB_PASSWORD`: Database password. Only relevant if your Magnolia instance is using a SQL database.
+
+You can easily overrid the default Tomcat settings either copying a new setenv.sh file in the container or mounting a volume to load the file from the host.
 
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
