@@ -49,3 +49,8 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 	-Dorg.apache.jackrabbit.core.cluster.node_id=$CLUSTER_ID \
 	-Dmagnolia.clusterid=$CLUSTER_ID"
 
+#
+# Magnolia develop mode
+#
+export CATALINA_OPTS="$CATALINA_OPTS \
+	-Dmagnolia.develop=$DEVELOP_MODE"

@@ -32,6 +32,7 @@ The configuration of the image is done through these environment variables:
 - `DB_SCHEMA`: Database schema. Only relevant if your Magnolia instance is using a SQL database.
 - `DB_USERNAME`: Database username. Only relevant if your Magnolia instance is using a SQL database.
 - `DB_PASSWORD`: Database password. Only relevant if your Magnolia instance is using a SQL database.
+- `DEVELOP_MODE`: Run magnolia in development mode.
 
 You can override the default Tomcat settings either copying a new setenv.sh file in the container or mounting a volume to load the file from the host.
 
