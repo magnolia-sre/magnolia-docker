@@ -13,7 +13,9 @@ RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/s
 RUN apt-get update && apt-get install -y --no-install-recommends  \
 	openjdk-8-jre-headless  \
 	tomcat8 \
-	wget  
+	wget && \
+  rm -rf /var/lib/apt/lists/* && \
+  apt-get clean
 
 # Configure Apache Tomcat environment variables
 ENV CATALINA_HOME /usr/share/tomcat8
