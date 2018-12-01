@@ -1,45 +1,19 @@
-FROM debian:jessie
+ARG TOMCAT_VER
+ARG JDK_VER
+ARG DB_TYPE
 
-MAINTAINER Nicolas Barbé "https://github.com/nicolasbarbe"
+FROM tomcat:${TOMCAT_VER}-${JDK_VER}-alpine
 
-ENV MYSQL_JDBC_PACKAGE mysql-connector-java-5.1.36
-ENV POSTGRESQL_JDBC_PACKAGE postgresql-9.4-1201.jdbc41
+MAINTAINER Magnolia SRE Team "https://github.com/magnolia-sre"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV IS_AUTHOR="true"
 
-RUN echo "deb http://http.debian.net/debian jessie-backports main" >> /etc/apt/sources.list
+COPY tomcat/setenv.sh $CATALINA_HOME/bin/
 
-# Install Apache Tomcat 8 and openjdk-8-jdk
-RUN apt-get update && apt-get install -y --no-install-recommends  \
-	openjdk-8-jre-headless  \
-	tomcat8 \
-	wget && \
-  rm -rf /var/lib/apt/lists/* && \
-  apt-get clean
+RUN apk add --update \
+    wget && \
+    rm -rf /var/cache/apk/* \
+    rm -Rf $CATALINA_HOME/webapps/* && \
+    wget -nv https://nexus.magnolia-cms.com/service/local/repositories/magnolia.public.releases/content/info/magnolia/magnolia-empty-webapp/5.7.1/magnolia-empty-webapp-5.7.1.war -O $CATALINA_HOME/webapps/ROOT.war
 
-# Configure Apache Tomcat environment variables
-ENV CATALINA_HOME /usr/share/tomcat8
-ENV CATALINA_BASE /var/lib/tomcat8
-ENV CATALINA_TMPDIR /tmp/tomcat8
-
-# Make sure that the temporary directory exists
-RUN mkdir -p $CATALINA_TMPDIR              
-
-# Remove all webapps from the default Tomcat installation
-RUN rm -rf $CATALINA_BASE/webapps/*
-
-# Copy tomcat configuration files from the project to the container
-COPY tomcat/setenv.sh  $CATALINA_BASE/bin/setenv.sh    
-
-# Install JDBC drivers
-RUN mkdir $CATALINA_HOME/lib/jdbc
-RUN wget -nv http://jdbc.postgresql.org/download/$POSTGRESQL_JDBC_PACKAGE.jar -O $CATALINA_HOME/lib/$POSTGRESQL_JDBC_PACKAGE.jar 
-RUN wget -nv -O - http://dev.mysql.com/get/Downloads/Connector-J/$MYSQL_JDBC_PACKAGE.tar.gz  | tar -C /tmp -xvzf - $MYSQL_JDBC_PACKAGE/$MYSQL_JDBC_PACKAGE-bin.jar 
-RUN mv /tmp/$MYSQL_JDBC_PACKAGE/$MYSQL_JDBC_PACKAGE-bin.jar $CATALINA_HOME/lib
-
-# Start the tomcat instance
-ENTRYPOINT ["/usr/share/tomcat8/bin/catalina.sh", "run"]
-CMD [""]
-
-# Expose the ports
-EXPOSE 8080
+VOLUME /var/lib/magnolia
