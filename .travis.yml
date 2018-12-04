@@ -1,5 +1,7 @@
 language: bash
-services: docker
+
+services: 
+  - docker
 
 env:
   - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
@@ -9,19 +11,12 @@ env:
   - TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
 
 before_script:
-  - env | sort
   - cd "magnolia-base/$DIST"
   - image="magnolia/magnolia-base:$TOMCAT_VER-$JRE_VER-$DIST"
 
 script:
-  - |
-    (
-      docker build --build-arg TOMCAT_VER  \
-                   --build-arg JRE_VER  \
-                   --tag $image .
-      docker push $image
-    )
-
+  - docker build --build-arg TOMCAT_VER  --build-arg JRE_VER --tag $image .
+      
 deploy:
   provider: script
   script: 
