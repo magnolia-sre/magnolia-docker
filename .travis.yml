@@ -19,7 +19,7 @@ script:
       set -Eeuo pipefail
       set -x
       docker build --build-arg TOMCAT_VER  \
-                   --build-arg JDK_VER  \
+                   --build-arg JRE_VER  \
                    --tag $image .
       docker push $image
     )
