@@ -1,0 +1,27 @@
+language: bash
+services: docker
+
+env:
+  - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
+  - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
+  - TOMCAT_VER=9.0.13 JRE_VER=jre11 DIST=slim
+  - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=alpine
+  - TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
+
+before_script:
+  - env | sort
+  - cd "$DIST"
+  - image="magnolia-sre/magnolia-base:$TOMCAT_VER-$JRE_VER-$DIST"
+
+script:
+  - |
+    (
+      set -Eeuo pipefail
+      set -x
+      docker build --build-arg TOMCAT_VER  \
+                   --build-arg JDK_VER  \
+                   --tag $image .
+      docker push $image
+    )
+
+# vim:set et ts=2 sw=2:
