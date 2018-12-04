@@ -10,8 +10,8 @@ env:
 
 before_script:
   - env | sort
-  - cd "$DIST"
-  - image="magnolia-sre/magnolia-base:$TOMCAT_VER-$JRE_VER-$DIST"
+  - cd "magnolia-base/$DIST"
+  - image="magnolia/magnolia-base:$TOMCAT_VER-$JRE_VER-$DIST"
 
 script:
   - |
