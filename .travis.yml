@@ -19,7 +19,9 @@ script:
       
 deploy:
   provider: script
-  script: bash docker_push.sh
+  script: 
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin ;
+      docker push USER/REPO
   on:
     branch: master
 
