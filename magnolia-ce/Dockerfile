@@ -1,8 +1,8 @@
 ARG TOMCAT_VER
-ARG JDK_VER
+ARG JRE_VER
 ARG DB_TYPE
 
-FROM magnolia-sre/magnolia-base:${TOMCAT_VER}-${JDK_VER}-${DB_TYPE}-alpine
+FROM magnolia-sre/magnolia-base:${TOMCAT_VER}-${JRE_VER}-${DB_TYPE}-alpine
 
 ARG MGNL_VERSION
 

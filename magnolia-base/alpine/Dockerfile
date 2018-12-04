@@ -1,7 +1,7 @@
 ARG TOMCAT_VER
-ARG JDK_VER
+ARG JRE_VER
 
-FROM tomcat:${TOMCAT_VER}-${JDK_VER}-alpine
+FROM tomcat:${TOMCAT_VER}-${JRE_VER}-alpine
 
 MAINTAINER Magnolia SRE Team "https://github.com/magnolia-sre"
 
