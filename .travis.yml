@@ -21,7 +21,7 @@ deploy:
   provider: script
   script: 
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin ;
-      docker push USER/REPO
+      docker push $image
   on:
     branch: master
 
