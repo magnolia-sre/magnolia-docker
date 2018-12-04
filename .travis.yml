@@ -4,24 +4,27 @@ services:
   - docker
 
 env:
-  - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
-  - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
-  - TOMCAT_VER=9.0.13 JRE_VER=jre11 DIST=slim
-  - TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=alpine
-  - TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-base                 TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
+  - IMAGE=magnolia-base                 TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
+  # - IMAGE=magnolia-base                 TOMCAT_VER=9.0.13 JRE_VER=jre11 DIST=slim
+  - IMAGE=magnolia-base                 TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-base                 TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-ce    MGNL_VER=5.7.1 TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-ce    MGNL_VER=6.0   TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
+
 
 before_script:
-  - cd "magnolia-base/$DIST"
-  - image="magnolia/magnolia-base:$TOMCAT_VER-$JRE_VER-$DIST"
+  - cd "$IMAGE/$DIST"
+  - repo="magnolia/$IMAGE:$TOMCAT_VER-$JRE_VER-$DIST"
 
 script:
-  - docker build --build-arg TOMCAT_VER  --build-arg JRE_VER --tag $image .
+  - docker build --build-arg TOMCAT_VER --build-arg JRE_VER --tag $repo .
       
 deploy:
   provider: script
   script: 
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin ;
-      docker push $image
+      docker push $repo
   on:
     branch: master
 
