@@ -1,7 +1,7 @@
 ARG TOMCAT_VER
 ARG JRE_VER
 
-FROM magnolia-sre/magnolia-base:${TOMCAT_VER}-${JRE_VER}-${DB_TYPE}-alpine
+FROM magnolia/magnolia-base:${TOMCAT_VER}-${JRE_VER}-${DB_TYPE}-alpine
 
 ARG MGNL_VER
 
