@@ -4,21 +4,20 @@ services:
   - docker
 
 env:
-  - IMAGE=magnolia-base                 TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
-  - IMAGE=magnolia-base                 TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=slim
-  # - IMAGE=magnolia-base                 TOMCAT_VER=9.0.13 JRE_VER=jre11 DIST=slim
-  - IMAGE=magnolia-base                 TOMCAT_VER=8.5.35 JRE_VER=jre8  DIST=alpine
-  - IMAGE=magnolia-base                 TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
-  - IMAGE=magnolia-ce    MGNL_VER=5.7.1 TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
-  - IMAGE=magnolia-ce    MGNL_VER=6.0   TOMCAT_VER=9.0.13 JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-base  TOMCAT_VER=8.5.35  JRE_VER=jre8  DIST=slim
+  - IMAGE=magnolia-base  TOMCAT_VER=8.5.35  JRE_VER=jre8  DIST=slim
+  - IMAGE=magnolia-base  TOMCAT_VER=8.5.35  JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-base  TOMCAT_VER=9.0.13  JRE_VER=jre8  DIST=alpine
+  - IMAGE=magnolia-ce    TOMCAT_VER=9.0.13  JRE_VER=jre8  DIST=alpine  MGNL_VER=5.7.1
+  - IMAGE=magnolia-ce    TOMCAT_VER=9.0.13  JRE_VER=jre8  DIST=alpine  MGNL_VER=6.0  
 
 
 before_script:
-  - cd "$IMAGE/$DIST"
+  - cd "$IMAGE"
   - repo="magnolia/$IMAGE:$TOMCAT_VER-$JRE_VER-$DIST"
 
 script:
-  - docker build --build-arg TOMCAT_VER --build-arg JRE_VER --tag $repo .
+  - docker build --build-arg TOMCAT_VER --build-arg JRE_VER --tag $repo -f Dockerfile-$DIST .
       
 deploy:
   provider: script
