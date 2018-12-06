@@ -17,7 +17,7 @@ before_script:
   - repo="magnolia/$IMAGE:$TOMCAT_VER-$JRE_VER-$DIST"
 
 script:
-  - docker build --build-arg TOMCAT_VER --build-arg JRE_VER --tag $repo -f Dockerfile-$DIST .
+  - docker build --build-arg TOMCAT_VER --build-arg JRE_VER --build-arg MGNL_VER --tag $repo -f Dockerfile-$DIST .
       
 deploy:
   provider: script
