@@ -1,7 +1,8 @@
 ARG TOMCAT_VER
 ARG JRE_VER
+ARG DIST
 
-FROM magnolia/magnolia-base:${TOMCAT_VER}-${JRE_VER}-alpine
+FROM magnolia/magnolia-base:${TOMCAT_VER}-${JRE_VER}-${DIST}
 
 ARG MGNL_VER
 
