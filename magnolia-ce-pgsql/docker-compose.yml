@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+
+  dbAuthor:
+    image: postgres
+    environment:
+      - POSTGRES_USER=magnolia
+      - POSTGRES_PASSWORD=mysecretpassword
+
+  dbPublic:
+    image: mysql
+    environment:
+      - MYSQL_USER=magnolia
+      - MYSQL_PASSWORD=mysecretpassword
+      - MYSQL_DATABASE=magnolia
+      - MYSQL_ROOT_PASSWORD=myVerySecretPassword
+
+  author:
+    image: magnolia/magnolia-ce-pgsql
+    ports:
+      - "3000:8080"
+    links:
+      - dbAuthor:db
+    environment:
+      - INSTANCE_TYPE=author
+      - DB_TYPE=postgresql
+      - DB_ADDRESS=db
+      - DB_PORT=5432
+      - DB_SCHEMA=magnolia
+      - DB_USERNAME=magnolia
+      - DB_PASSWORD=mysecretpassword
+
+  public:
+    image: magnolia/magnolia-ce-pgsql
+    ports:
+      - "3001:8080"
+    links:
+      - dbPublic:db
+    environment:
+      - INSTANCE_TYPE=public
+      - DB_TYPE=mysql
+      - DB_ADDRESS=db
+      - DB_PORT=3306
+      - DB_SCHEMA=magnolia
+      - DB_USERNAME=magnolia
+      - DB_PASSWORD=mysecretpassword

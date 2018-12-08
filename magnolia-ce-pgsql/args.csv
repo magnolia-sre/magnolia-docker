@@ -1,0 +1,4 @@
+# Magnolia Version, Tomcat Version , JDK Version, Distribution
+  5.7.1           , 8.5.35         , jre8       , alpine
+  6.0             , 9.0.13         , jre11      , slim 
+#end

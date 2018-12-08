@@ -1,0 +1,11 @@
+ARG TOMCAT_VER
+ARG JRE_VER
+ARG DIST
+
+FROM magnolia/magnolia-base:${TOMCAT_VER}-${JRE_VER}-${DIST}
+
+ARG MGNL_VER
+
+COPY files/repo.xml /etc/magnolia/repo.xml
+
+RUN wget -nv https://nexus.magnolia-cms.com/service/local/repositories/magnolia.public.releases/content/info/magnolia/bundle/magnolia-community-demo-webapp/$MGNL_VER/magnolia-community-demo-webapp-$MGNL_VER.war -O $CATALINA_HOME/webapps/ROOT.war

@@ -5,7 +5,7 @@ FROM tomcat:${TOMCAT_VER}-${JRE_VER}-slim
 
 MAINTAINER Magnolia SRE Team "https://github.com/magnolia-sre"
 
-ONBUILD COPY tomcat/setenv.sh $CATALINA_HOME/bin/
+ONBUILD COPY files/setenv.sh $CATALINA_HOME/bin/
 
 RUN apt-get update && apt-get install -y wget && \
     rm -Rf $CATALINA_HOME/webapps/* 

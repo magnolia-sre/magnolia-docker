@@ -7,6 +7,7 @@ env:
   - DIR=magnolia-base/alpine
   - DIR=magnolia-base/slim
   - DIR=magnolia-ce
+  - DIR=magnolia-ce-pgsql
 
 script:
   - DIR=${DIR} && make build

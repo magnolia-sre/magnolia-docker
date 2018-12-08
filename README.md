@@ -4,26 +4,44 @@ A repository containing docker images for [Magnolia CMS](http://magnolia-cms.com
 ## The base image
 A base image is available as a starting point for any containers running Magnolia CMS.
 
-~~This image is based on Debian Jessie, JDK 8 and Tomcat 8 and includes JDBC drivers for MySQL and PostgreSQL.~~
-
-~~It starts automatically an empty Tomcat server and exposes the port 8080.~~
- 
-~~More details in this [blog post](http://nicolasbarbe.com/2015/01/02/a-docker-image-for-magnolia/).~~
+The image exists in different flavors: magnolia/magnolia-base:<TOMCAT VERSION>-<JRE VERSION>-<DISTRIBUTION>.
 
 ## Usage
-To create a Docker image of your Magnolia project you must create your own Dockerfile which _inherits_ the base image and copies the WAR file to the folder ``` $CATALINA_BASE/webapps```.
+To create a Docker image for your Magnolia project you must create your own Dockerfile which _inherits_ the base image and copies the WAR file to the folder ``` $CATALINA_BASE/webapps```.
 
-Here is a straightforward Dockerfile which takes the official Magnolia WAR file available on sourceforge:
+The base image expects the file ``files/setenv.sh`` be present in the build context. This file is used to configure the JRE, Tomcat and Magnolia using Java properties. 
 
-```
-FROM magnolia/magnolia-base
+The following example configure the Java Virtual Machine:
 
-MAINTAINER Nicolas Barbé "https://github.com/nicolasbarbe"
+````
+export CATALINA_OPTS="$CATALINA_OPTS -Xms64M -Xmx2048M -server -Djava.awt.headless=true"
+````
+## Examples
 
-RUN wget -nv https://nexus.magnolia-cms.com/service/local/repositories/magnolia.public.releases/content/info/magnolia/bundle/magnolia-community-demo-webapp/6.0/magnolia-community-demo-webapp-6.0.war -O $CATALINA_HOME/webapps/ROOT.war
-```
+### Magnolia Community Edition
+This image runs Magnolia Community Edition with the embedded H2 database. 
 
-Here, Magnolia CMS is running inside its own container as an author instance and uses Derby to persist the data.
+The image can be configured with the following environment variables:
+- IS_AUTHOR (true|false) The instance is a author instance
+- DEVELOP_MODE (true|false) The instance is started in development mode
+
+Exemple: ```docker run -p 8080:8080 -e IS_AUTHOR=false -e DEVELOP_MODE=false magnolia/magnolia-ce:6.0-9.0.13-jre11-slim```
+
+### Magnolia Community Edition with Postgresql
+This image runs Magnolia Community Edition with an external postgresql database. 
+
+The image can be configured with the following environment variables:
+- IS_AUTHOR (true|false) The instance is a author instance
+- DEVELOP_MODE (true|false) The instance is started in development mode
+- DB_ADDRESS Postgresql database address
+- DB_PORT Postgresql database port
+- DB_SCHEMA Postgresql database schema
+- DB_USERNAME Postgresql database username
+- DB_PASSWORD Postgresql database password
+
+
+Exemple: ```docker run -p 8080:8080 -e IS_AUTHOR=false -e DEVELOP_MODE=false magnolia/magnolia-ce:6.0-9.0.13-jre11-slim```
+
 
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
