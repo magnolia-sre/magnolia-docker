@@ -4,26 +4,17 @@ services:
   - docker
 
 env:
-  - IMAGE=magnolia-base  TOMCAT_VER=8.5.35  JRE_VER=jre8  DIST=slim
-  - IMAGE=magnolia-base  TOMCAT_VER=8.5.35  JRE_VER=jre8  DIST=slim
-  - IMAGE=magnolia-base  TOMCAT_VER=8.5.35  JRE_VER=jre8  DIST=alpine
-  - IMAGE=magnolia-base  TOMCAT_VER=9.0.13  JRE_VER=jre8  DIST=alpine
-  - IMAGE=magnolia-ce    TOMCAT_VER=9.0.13  JRE_VER=jre8  DIST=alpine  MGNL_VER=5.7.1
-  - IMAGE=magnolia-ce    TOMCAT_VER=9.0.13  JRE_VER=jre8  DIST=alpine  MGNL_VER=6.0  
-
-
-before_script:
-  - cd "$IMAGE"
-  - repo="magnolia/$IMAGE:$TOMCAT_VER-$JRE_VER-$DIST"
+  - DIR=magnolia-base/alpine
+  - DIR=magnolia-base/slim
+  - DIR=magnolia-ce
 
 script:
-  - docker build --build-arg TOMCAT_VER --build-arg JRE_VER --build-arg MGNL_VER --tag $repo -f Dockerfile-$DIST .
+  - DIR=${DIR} && make build
       
 deploy:
   provider: script
   script: 
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin ;
-      docker push $repo
+    - DIR=${DIR} && make push
   on:
     branch: master
 
