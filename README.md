@@ -4,7 +4,7 @@ A repository containing docker images for [Magnolia CMS](http://magnolia-cms.com
 ## The base image
 A base image is available as a starting point for any containers running Magnolia CMS.
 
-The image exists in different flavors: magnolia/magnolia-base:<TOMCAT VERSION>-<JRE VERSION>-<DISTRIBUTION>.
+The image exists in different flavors: **`magnolia/magnolia-base:<TOMCAT VERSION>-<JRE VERSION>-<DISTRIBUTION>`**.
 
 ## Usage
 To create a Docker image for your Magnolia project you must create your own Dockerfile which _inherits_ the base image and copies the WAR file to the folder ``` $CATALINA_BASE/webapps```.
@@ -22,26 +22,28 @@ export CATALINA_OPTS="$CATALINA_OPTS -Xms64M -Xmx2048M -server -Djava.awt.headle
 This image runs Magnolia Community Edition with the embedded H2 database. 
 
 The image can be configured with the following environment variables:
-- IS_AUTHOR (true|false) The instance is a author instance
-- DEVELOP_MODE (true|false) The instance is started in development mode
+- `IS_AUTHOR (true|false)` The instance is a author instance
+- `DEVELOP_MODE (true|false)` The instance is started in development mode
 
-Exemple: ```docker run -p 8080:8080 -e IS_AUTHOR=false -e DEVELOP_MODE=false magnolia/magnolia-ce:6.0-9.0.13-jre11-slim```
+**Example:** 
+```docker run -p 8080:8080 -e IS_AUTHOR=false -e DEVELOP_MODE=false magnolia/magnolia-ce:6.0-9.0.13-jre11-slim```
 
 ### Magnolia Community Edition with Postgresql
 This image runs Magnolia Community Edition with an external postgresql database. 
 
 The image can be configured with the following environment variables:
-- IS_AUTHOR (true|false) The instance is a author instance
-- DEVELOP_MODE (true|false) The instance is started in development mode
-- DB_ADDRESS Postgresql database address
-- DB_PORT Postgresql database port
-- DB_SCHEMA Postgresql database schema
-- DB_USERNAME Postgresql database username
-- DB_PASSWORD Postgresql database password
+- `IS_AUTHOR (true|false)` The instance is a author instance
+- `DEVELOP_MODE (true|false)` The instance is started in development mode
+- `DB_ADDRESS` Postgresql database address
+- `DB_PORT` Postgresql database port
+- `DB_SCHEMA` Postgresql database schema
+- `DB_USERNAME` Postgresql database username
+- `DB_PASSWORD` Postgresql database password
 
 The docker compose file can be used to start a public and author instances with their respective database:
 
-Exemple: ```docker-compose up```
+**Example:**
+```docker-compose up```
 
 The author instance is available at http://localhost:3000 and the public instance at http://localhost:3001
 
