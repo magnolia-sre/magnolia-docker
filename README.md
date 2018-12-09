@@ -47,5 +47,13 @@ The docker compose file can be used to start a public and author instances with 
 
 The author instance is available at http://localhost:3000 and the public instance at http://localhost:3001
 
+## Recommendations
+- [Create your own bundle](https://documentation.magnolia-cms.com/display/DOCS60/Creating+a+custom+bundle).
+- [Use a single build artefact (war)](https://documentation.magnolia-cms.com/display/DOCS60/WAR+file+with+multiple+configurations) that contains a deployment configuration for all your environments.
+- Alternatively, use a agnostic build artifact and configure `magnolia.home` to point outside of `CATALINA_HOME` such as for example `/etc/magnolia` and configure Magnolia from the `Dockerfile`.
+- Expose java properties as environment variable in the `setenv.sh` file to configure your container.
+- By default, `MagnoliaServletContextListener` looks for `contextPath` or `servername` which are always the same inside a container. Instead, use environment variable inside your `<context-param>` of your `web.xml` : `WEB-INF/config/${env/INSTANCE_TYPE}/${env/DB_TYPE}/magnolia.properties`
+
+
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
