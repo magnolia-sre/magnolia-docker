@@ -28,7 +28,6 @@ export CATALINA_OPTS="$CATALINA_OPTS \
 #	
 # Database settings 
 #
-
 export CATALINA_OPTS="$CATALINA_OPTS \
     -Dmagnolia.repositories.jackrabbit.config=/etc/magnolia/repo.xml \
 	-Ddb.address=$DB_ADDRESS \

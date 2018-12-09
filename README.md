@@ -39,9 +39,11 @@ The image can be configured with the following environment variables:
 - DB_USERNAME Postgresql database username
 - DB_PASSWORD Postgresql database password
 
+The docker compose file can be used to start a public and author instances with their respective database:
 
-Exemple: ```docker run -p 8080:8080 -e IS_AUTHOR=false -e DEVELOP_MODE=false magnolia/magnolia-ce:6.0-9.0.13-jre11-slim```
+Exemple: ```docker-compose up```
 
+The author instance is available at http://localhost:3000 and the public instance at http://localhost:3001
 
 ## Important notes
 This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
