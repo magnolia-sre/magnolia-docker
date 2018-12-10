@@ -56,4 +56,4 @@ The author instance is available at http://localhost:3000 and the public instanc
 
 
 ## Important notes
-This images are still in early phase of development and not suited to be used in production. For instance, default Tomcat and JVM settings are still used.
+These images are still in early phase of development and not suited to be used in production.
