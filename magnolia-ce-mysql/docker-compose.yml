@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+
+  dbAuthor:
+    image: mysql:8.0.17
+    environment:
+      - MYSQL_DATABASE=magnolia
+      - MYSQL_USER=magnolia
+      - MYSQL_PASSWORD=mysecretpassword
+      - MYSQL_ROOT_PASSWORD=password
+ 
+  dbPublic:
+    image: mysql:8.0.17
+    environment:
+      - MYSQL_DATABASE=magnolia
+      - MYSQL_USER=magnolia
+      - MYSQL_PASSWORD=mysecretpassword
+      - MYSQL_ROOT_PASSWORD=password
+
+  author:
+    image: magnolia/magnolia-ce-mysql:6.1.2-9.0.24-jdk11-openjdk-slim
+    ports:
+      - "3000:8080"
+    links:
+      - dbAuthor:db
+    depends_on:
+      - dbAuthor
+    environment:
+      - INSTANCE_TYPE=author
+      - DB_ADDRESS=db
+      - DB_PORT=3306
+      - DB_SCHEMA=magnolia
+      - DB_USERNAME=magnolia
+      - DB_PASSWORD=mysecretpassword
+      - IS_AUTHOR=true
+      - DEVELOP_MODE=false
+
+  public:
+    image: magnolia/magnolia-ce-mysql:6.1.2-9.0.24-jdk11-openjdk-slim
+    ports:
+      - "3001:8080"
+    links:
+      - dbPublic:db
+    depends_on:
+      - dbPublic
+    environment:
+      - INSTANCE_TYPE=public
+      - DB_ADDRESS=db
+      - DB_PORT=3306
+      - DB_SCHEMA=magnolia
+      - DB_USERNAME=magnolia
+      - DB_PASSWORD=mysecretpassword
+      - IS_AUTHOR=false
+      - DEVELOP_MODE=false
