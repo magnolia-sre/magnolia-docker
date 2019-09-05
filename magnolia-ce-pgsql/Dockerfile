@@ -2,7 +2,7 @@ ARG TOMCAT_VER
 ARG JRE_VER
 ARG DIST
 
-FROM magnolia/magnolia-base:${TOMCAT_VER}-${JRE_VER}-${DIST}
+FROM magnolia/magnolia-base:${TOMCAT_VER}-${JRE_VER}${DIST:+-$DIST}
 
 ARG MGNL_VER
 ENV POSTGRESQL_VER 42.2.5

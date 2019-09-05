@@ -1,4 +1,5 @@
-# Tomcat Version , JDK Version
-  8.5.35         , jre8       
-  9.0.13         , jre11       
+# Tomcat Version,JDK Version
+8.5.35,jre8
+9.0.13,jre11
+9.0.24,jdk11-openjdk
 #end

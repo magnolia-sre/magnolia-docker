@@ -3,23 +3,25 @@ version: '3'
 services:
 
   dbAuthor:
-    image: postgres
+    image: postgres:42.2.5
     environment:
       - POSTGRES_USER=magnolia
       - POSTGRES_PASSWORD=mysecretpassword
 
   dbPublic:
-    image: postgres
+    image: postgres:42.2.5
     environment:
       - POSTGRES_USER=magnolia
       - POSTGRES_PASSWORD=mysecretpassword
 
   author:
-    image: magnolia/magnolia-ce-pgsql:6.0-9.0.13-jre11-slim
+    image: magnolia/magnolia-ce-pgsql:6.1.2-9.0.24-jdk11-openjdk-slim
     ports:
       - "3000:8080"
     links:
       - dbAuthor:db
+    depends_on:
+      - dbAuthor
     environment:
       - INSTANCE_TYPE=author
       - DB_ADDRESS=db
@@ -31,11 +33,13 @@ services:
       - DEVELOP_MODE=false
 
   public:
-    image: magnolia/magnolia-ce-pgsql:6.0-9.0.13-jre11-slim
+    image: magnolia/magnolia-ce-pgsql:6.1.2-9.0.24-jdk11-openjdk-slim
     ports:
       - "3001:8080"
     links:
       - dbPublic:db
+    depends_on:
+      - dbPublic
     environment:
       - INSTANCE_TYPE=public
       - DB_ADDRESS=db
