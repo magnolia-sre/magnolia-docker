@@ -1,5 +1,8 @@
 # Magnolia Version,Tomcat Version,JDK Version,Distribution
 5.7.1,8.5.35,jre8,alpine
+5.7.4,9.0.24,jre8,alpine
+5.7.4,9.0.24,jre11,slim
+5.7.4,9.0.24,jdk11-corretto
 6.0,9.0.13,jre11,slim
 6.1.2,9.0.24,jdk11-openjdk,slim
 6.1.2,9.0.24,jdk11-corretto
