@@ -20,7 +20,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- We use the DX CORE for now -->
       <dependency>
         <groupId>info.magnolia</groupId>
         <artifactId>magnolia-empty-webapp</artifactId>
