@@ -13,13 +13,13 @@
 
   <dependencies>
     <dependency>
-      <groupId>info.magnolia.bundle</groupId>
-      <artifactId>magnolia-community-webapp</artifactId>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-empty-webapp</artifactId>
       <type>war</type>
     </dependency>
     <dependency>
-      <groupId>info.magnolia.bundle</groupId>
-      <artifactId>magnolia-community-webapp</artifactId>
+      <groupId>info.magnolia</groupId>
+      <artifactId>magnolia-empty-webapp</artifactId>
       <type>pom</type>
     </dependency>
   </dependencies>

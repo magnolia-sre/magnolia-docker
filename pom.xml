@@ -22,8 +22,8 @@
     <dependencies>
       <!-- We use the DX CORE for now -->
       <dependency>
-        <groupId>info.magnolia.bundle</groupId>
-        <artifactId>magnolia-community-webapp</artifactId>
+        <groupId>info.magnolia</groupId>
+        <artifactId>magnolia-empty-webapp</artifactId>
         <version>${magnoliaBundleVersion}</version>
         <type>pom</type>
         <scope>import</scope>
