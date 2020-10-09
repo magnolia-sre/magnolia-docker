@@ -22,4 +22,4 @@ jobs:
         run: mvn -B docker:build
 
       - name: Push Magnolia Docker Image
-        run: mvn -B -Ddocker.username=test -Ddocker.password=yolo docker:push
+        run: mvn -B -Ddocker.username=${{secrets.PACKAGES_USER}} -Ddocker.password=${{secrets.PACKAGES_TOKEN}} docker:push
