@@ -71,5 +71,14 @@
     </pluginManagement>
   </build>
 
-
+  <repositories>
+    <repository>
+      <id>magnolia</id>
+      <url>https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/</url>
+    </repository>
+    <repository>
+      <id>magnolia-third-party</id>
+      <url>https://nexus.magnolia-cms.com/content/repositories/thirdparty.customized/</url>
+    </repository>
+  </repositories>
 </project>
