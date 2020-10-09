@@ -2,18 +2,12 @@
 # Magnolia Docker Image
 # ----------------------------------------------------------
 #
-# The slim version relates to "slim" openjdk that contains the minimal packages needed to run Java only.
-# Switch back to normal version in case of we found the slim version is not enough for Magnolia running
-#
-# Environment variables:
-#   + CATALINA_HOME : /usr/local/tomcat
-#   + More in https://github.com/docker-library/tomcat/blob/46fb91d392f48c4e606cb6f845c4be37d6bacffc/9.0/jdk11/openjdk-slim/Dockerfile
-FROM tomcat:9.0.37-jdk14-openjdk-slim
+# https://github.com/docker-library/tomcat/blob/46fb91d392f48c4e606cb6f845c4be37d6bacffc/9.0/jdk11/openjdk-slim/Dockerfile
+FROM tomcat:9.0.38-jdk11-openjdk-slim
 
 MAINTAINER sre@magnolia-cms.com
 
 ENV JAVA_OPTS="-Dmagnolia.home=/opt/magnolia -Dmagnolia.resources.dir=/opt/magnolia -Dmagnolia.update.auto=true -Dmagnolia.author.key.location=/opt/magnolia/activation-key/magnolia-activation-keypair.properties"
-
 
 # Copy Tomcat setenv.sh
 COPY src/main/docker/tomcat-setenv.sh $CATALINA_HOME/bin/setenv.sh
