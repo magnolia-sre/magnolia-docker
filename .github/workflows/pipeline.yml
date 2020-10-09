@@ -20,3 +20,6 @@ jobs:
 
       - name: Build Magnolia Docker Image
         run: mvn -B docker:build
+
+      - name: Push Magnolia Docker Image
+        run: mvn -B -Ddocker.username=test -Ddocker.password=yolo docker:push

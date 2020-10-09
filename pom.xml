@@ -57,7 +57,7 @@
           <configuration>
             <images>
               <image>
-                <name>${docker-image-name}</name>
+                <name>docker.pkg.github.com/magnolia-sre/magnolia-docker/${docker-image-name}</name>
                 <alias>dockerfile</alias>
                 <build>
                   <contextDir>${project.basedir}</contextDir>
