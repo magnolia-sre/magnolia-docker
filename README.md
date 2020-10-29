@@ -6,12 +6,10 @@ and relies on as little customizations as possible.
 # Run the container
 
 Pull and run the container:
-`docker pull docker.pkg.github.com/magnolia-sre/magnolia-docker/magnolia-docker:latest`
-
-You need to [authenticate even for public packages](https://github.community/t/docker-pull-from-public-github-package-registry-fail-with-no-basic-auth-credentials-error)
+`docker pull ghcr.io/magnolia-sre/magnolia-docker/magnolia-docker:latest`
 
 See: 
-[magnolia-sre/magnolia-docker Packages](https://github.com/magnolia-sre/magnolia-docker/packages)
+[magnolia-sre/magnolia-docker Packages](https://github.com/orgs/magnolia-sre/packages/container/package/magnolia-docker%2Fmagnolia-docker)
 
 ## Purpose
 
