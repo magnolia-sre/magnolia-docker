@@ -43,20 +43,32 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+resources:
+  limits:
+    memory: 1000Mi
+  requests:
+    cpu: 500m
+    memory: 1000Mi
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+
+liveness:
+  httpGet:
+    path: /.rest/status
+    port: http
+  initialDelaySeconds: 60
+  timeoutSeconds: 4
+  periodSeconds: 5
+  failureThreshold: 7
+readiness:
+  httpGet:
+    path: /.rest/status
+    port: http
+  initialDelaySeconds: 65
+  timeoutSeconds: 4
+  periodSeconds: 6
+  failureThreshold: 2
