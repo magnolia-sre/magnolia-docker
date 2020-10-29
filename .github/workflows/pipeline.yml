@@ -23,3 +23,20 @@ jobs:
 
       - name: Push Magnolia Docker Image
         run: mvn -B -Ddocker.username=${{secrets.PACKAGES_USER}} -Ddocker.password=${{secrets.PACKAGES_TOKEN}} docker:push
+
+
+  helm-lint:
+    name: Helm lint and release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Helm Lint
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm lint ./helm-chart
+      - name: Helm install
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: helm upgrade --install github-magnolia-docker ./helm-chart
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
