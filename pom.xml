@@ -20,9 +20,10 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- Importing dependencyManagement of magnolia-bundle-parent: Includes empty-webapp and community-webapp dependencies.-->
       <dependency>
-        <groupId>info.magnolia</groupId>
-        <artifactId>magnolia-empty-webapp</artifactId>
+        <groupId>info.magnolia.bundle</groupId>
+        <artifactId>magnolia-bundle-parent</artifactId>
         <version>${magnoliaBundleVersion}</version>
         <type>pom</type>
         <scope>import</scope>

@@ -22,6 +22,12 @@
       <artifactId>magnolia-empty-webapp</artifactId>
       <type>pom</type>
     </dependency>
+
+    <!-- Contains the liveness/readiness end point: .rest/status -->
+    <dependency>
+      <groupId>info.magnolia.rest</groupId>
+      <artifactId>magnolia-rest-services</artifactId>
+    </dependency>
   </dependencies>
  
   <build>
