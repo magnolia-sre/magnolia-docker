@@ -27,8 +27,9 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  name: http
   port: 80
+  targetPort: 8080
 
 ingress:
   enabled: false
@@ -60,15 +61,28 @@ liveness:
   httpGet:
     path: /.rest/status
     port: http
-  initialDelaySeconds: 60
   timeoutSeconds: 4
   periodSeconds: 5
-  failureThreshold: 7
+  failureThreshold: 3
+  initialDelaySeconds: 90
+
 readiness:
   httpGet:
     path: /.rest/status
     port: http
-  initialDelaySeconds: 65
   timeoutSeconds: 4
   periodSeconds: 6
-  failureThreshold: 2
+  failureThreshold: 3
+  initialDelaySeconds: 90
+
+# Replaced with liveness after successful startup
+# Supported for 1.16 (alpha). Needs to be enabled per Feature Gates.
+# https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#using-a-feature
+# https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment#startup_probe
+# TODO: enable this on the cluster and tighten the liveness probe!
+startupProbe:
+#  httpGet:
+#    path: /.rest/status
+#    port: http
+#  failureThreshold: 30
+#  periodSeconds: 6

@@ -5,11 +5,10 @@ metadata:
   labels:
     {{- include "magnolia.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: http
+      name: {{ .Values.service.name }}
   selector:
     {{- include "magnolia.selectorLabels" . | nindent 4 }}
