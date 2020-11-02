@@ -1,9 +1,14 @@
-# Magnolia Docker Image bundle
+# About
 
-This reactor creates a webapp and docker container for Magnolia CMS. It inherits from ```magnolia-empty-webapp``` 
+A blueprint project for creating a customized docker image for Magnolia CMS. Including helm-chart and pipeline for
+its deployment in k8s.
+
+## Magnolia Docker Image bundle
+
+Creates a webapp and docker container for Magnolia CMS using `io.fabric8:docker-maven-plugin`. It inherits from ```magnolia-empty-webapp``` 
 and relies on as little customizations as possible.
 
-# Run the container
+### Run the container
 
 Pull and run the container:
 `docker pull ghcr.io/magnolia-sre/magnolia-docker/magnolia-docker:latest`
@@ -11,19 +16,13 @@ Pull and run the container:
 See: 
 [magnolia-sre/magnolia-docker Packages](https://github.com/orgs/magnolia-sre/packages/container/package/magnolia-docker%2Fmagnolia-docker)
 
-## Purpose
-
-Currently, this project is more a showcase of how to set up a build pipeline for automated image creation with Magnolia.
-
-More to come.
+## CI/CD
 
 Refer to the [pipeline](.github/workflows/pipeline.yml) for more insights.
 
-## Build steps
+## Simplifications
 
-```shell script
-mvn clean verify -U 
-mvn docker:build
-mvn docker:push
-```
-
+* Uses H2 DB
+* No persistent storage
+* Only the author (will be addressed next)
+* ..
