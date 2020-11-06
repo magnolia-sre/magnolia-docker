@@ -46,13 +46,13 @@ ingress:
   #  - host: github-magnolia-docker-public.experimentation.magnolia-cloud.com
   #    paths:
   #      - /
-  #tls:
-  #  - secretName: github-magnolia-docker-author-tls
-  #    hosts:
-  #      - github-magnolia-docker-author.experimentation.magnolia-cloud.com
-  #  - secretName: github-magnolia-docker-public-tls
-  #      hosts:
-  #        - github-magnolia-docker-public.experimentation.magnolia-cloud.com
+  tls:
+    - secretName: github-magnolia-docker-author-tls
+      hosts:
+        - github-magnolia-docker-author.experimentation.magnolia-cloud.com
+    - secretName: github-magnolia-docker-public-tls
+      hosts:
+        - github-magnolia-docker-public.experimentation.magnolia-cloud.com
 
 resources:
   limits:
@@ -103,7 +103,10 @@ env:
       # WARNING: Glob patterns are expanded. Make sure to quote them if you don't want pattern expansion before magnolia is started
       value: >-
         -Dmagnolia.bootstrap.authorInstance=true
+        -Dmagnolia.update.auto=true
+
   public:
     - name: JAVA_OPTS
       value: >-
         -Dmagnolia.bootstrap.authorInstance=false
+        -Dmagnolia.update.auto=true
