@@ -46,6 +46,13 @@ spec:
             {{- toYaml .Values.startupProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: mounted-config
+              mountPath: /opt/magnolia/modules/magnolia-cloud/decorations/publishing-core
+      volumes:
+        - name: mounted-config
+          configMap:
+            name: {{ template "magnolia.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

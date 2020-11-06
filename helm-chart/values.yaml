@@ -104,9 +104,11 @@ env:
       value: >-
         -Dmagnolia.bootstrap.authorInstance=true
         -Dmagnolia.update.auto=true
+        -Dmagnolia.home=/opt/magnolia
 
   public:
     - name: JAVA_OPTS
       value: >-
         -Dmagnolia.bootstrap.authorInstance=false
         -Dmagnolia.update.auto=true
+        -Dmagnolia.home=/opt/magnolia
