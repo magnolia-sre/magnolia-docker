@@ -36,14 +36,23 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: github-magnolia-docker.experimentation.magnolia-cloud.com
-      paths:
-        - /
-  tls:
-    - secretName: github-magnolia-docker-tls
-      hosts:
-        - github-magnolia-docker.experimentation.magnolia-cloud.com
+  path: /
+  authorHost: github-magnolia-docker-author.experimentation.magnolia-cloud.com
+  publicHost: github-magnolia-docker-public.experimentation.magnolia-cloud.com
+  # hosts:
+  #  - host: github-magnolia-docker-author.experimentation.magnolia-cloud.com
+  #    paths:
+  #      - /
+  #  - host: github-magnolia-docker-public.experimentation.magnolia-cloud.com
+  #    paths:
+  #      - /
+  #tls:
+  #  - secretName: github-magnolia-docker-author-tls
+  #    hosts:
+  #      - github-magnolia-docker-author.experimentation.magnolia-cloud.com
+  #  - secretName: github-magnolia-docker-public-tls
+  #      hosts:
+  #        - github-magnolia-docker-public.experimentation.magnolia-cloud.com
 
 resources:
   limits:
@@ -81,9 +90,20 @@ readiness:
 # https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#using-a-feature
 # https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment#startup_probe
 # TODO: enable this on the cluster and tighten the liveness probe!
-startupProbe:
+startupProbe: {}
 #  httpGet:
 #    path: /.rest/status
 #    port: http
 #  failureThreshold: 30
 #  periodSeconds: 6
+
+env:
+  author:
+    - name: JAVA_OPTS
+      # WARNING: Glob patterns are expanded. Make sure to quote them if you don't want pattern expansion before magnolia is started
+      value: >-
+        -Dmagnolia.bootstrap.authorInstance=true
+  public:
+    - name: JAVA_OPTS
+      value: >-
+        -Dmagnolia.bootstrap.authorInstance=false

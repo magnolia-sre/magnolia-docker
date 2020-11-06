@@ -1,14 +1,31 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "magnolia.fullname" . }}
+  name: {{ include "magnolia.fullname" . }}-author
   labels:
-    {{- include "magnolia.labels" . | nindent 4 }}
+    {{- include "magnolia.labels" . | nindent 4 }}-author
 spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
-      name: {{ .Values.service.name }}
+      name: {{ .Values.service.name }}-author
   selector:
-    {{- include "magnolia.selectorLabels" . | nindent 4 }}
+    {{- include "magnolia.selectorLabels" . | nindent 4 }}-author
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "magnolia.fullname" . }}-public
+  labels:
+    {{- include "magnolia.labels" . | nindent 4 }}-public
+spec:
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: {{ .Values.service.name }}-public
+  selector:
+    {{- include "magnolia.selectorLabels" . | nindent 4 }}-public
