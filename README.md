@@ -24,5 +24,4 @@ Refer to the [pipeline](.github/workflows/pipeline.yml) for more insights.
 
 * Uses H2 DB
 * No persistent storage
-* Only the author (will be addressed next)
 * ..
