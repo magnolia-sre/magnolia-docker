@@ -1,0 +1,145 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "magnolia.fullname" . }}-author
+  labels:
+    {{- include "magnolia.labels" . | nindent 4 }}-author
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "magnolia.selectorLabels" . | nindent 6 }}-author
+  serviceName: {{ include "magnolia.fullname" . }}-author-headless
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "magnolia.selectorLabels" . | nindent 8 }}-author
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init
+          image: busybox:1.28
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /tmp/magnolia/modules/magnolia-cloud/decorations/publishing-core
+              cp /tmp/magnolia-config/magnolia-cloud.decorations.publishing-core.config.yaml /tmp/magnolia/modules/magnolia-cloud/decorations/publishing-core/config.yaml
+
+          volumeMounts:
+            - name: mounted-config
+              mountPath: /tmp/magnolia-config
+            - name: magnolia-home
+              mountPath: /tmp/magnolia
+      containers:
+        - name: {{ .Chart.Name }}-author
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- toYaml .Values.env.author | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.liveness | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readiness | nindent 12 }}
+          startupProbe:
+            {{- toYaml .Values.startupProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: magnolia-home
+              mountPath: /opt/magnolia
+      volumes:
+        - name: mounted-config
+          configMap:
+            name: {{ template "magnolia.fullname" . }}
+        - name: magnolia-home
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "magnolia.fullname" . }}-public
+  labels:
+    {{- include "magnolia.labels" . | nindent 4 }}-public
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "magnolia.selectorLabels" . | nindent 6 }}-public
+  serviceName: {{ include "magnolia.fullname" . }}-public-headless
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "magnolia.selectorLabels" . | nindent 8 }}-public
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-public
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- toYaml .Values.env.public | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.liveness | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readiness | nindent 12 }}
+          startupProbe:
+            {{- toYaml .Values.startupProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

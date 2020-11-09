@@ -1,0 +1,15 @@
+{{- $fullName := include "magnolia.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "magnolia.fullname" . }}
+  labels:
+    app: {{ template "magnolia.name" . }}
+    chart: {{ template "magnolia.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  magnolia-cloud.decorations.publishing-core.config.yaml: |-
+    receivers: !override
+      public0:
+        url: https://{{ .Values.ingress.publicHost }}
