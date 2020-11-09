@@ -9,8 +9,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  config.yaml: |-
+  magnolia-cloud.decorations.publishing-core.config.yaml: |-
     receivers: !override
       public0:
-        enable: true
         url: https://{{ .Values.ingress.publicHost }}

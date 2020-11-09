@@ -26,6 +26,21 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init
+          image: busybox:1.28
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /tmp/magnolia/modules/magnolia-cloud/decorations/publishing-core
+              cp /tmp/magnolia-config/magnolia-cloud.decorations.publishing-core.config.yaml /tmp/magnolia/modules/magnolia-cloud/decorations/publishing-core/config.yaml
+
+          volumeMounts:
+            - name: mounted-config
+              mountPath: /tmp/magnolia-config
+            - name: magnolia-home
+              mountPath: /tmp/magnolia
       containers:
         - name: {{ .Chart.Name }}-author
           securityContext:
@@ -47,12 +62,14 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - name: mounted-config
-              mountPath: /opt/magnolia/modules/magnolia-cloud/decorations/publishing-core
+            - name: magnolia-home
+              mountPath: /opt/magnolia
       volumes:
         - name: mounted-config
           configMap:
             name: {{ template "magnolia.fullname" . }}
+        - name: magnolia-home
+          emptyDir: {}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
