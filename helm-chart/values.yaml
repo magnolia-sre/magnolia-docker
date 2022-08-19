@@ -90,12 +90,12 @@ readiness:
 # https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#using-a-feature
 # https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment#startup_probe
 # TODO: enable this on the cluster and tighten the liveness probe!
-startupProbe: {}
-#  httpGet:
-#    path: /.rest/status
-#    port: http
-#  failureThreshold: 30
-#  periodSeconds: 6
+startupProbe: 
+  httpGet:
+    path: /.rest/status
+    port: http
+  failureThreshold: 30
+  periodSeconds: 6
 
 env:
   author:
